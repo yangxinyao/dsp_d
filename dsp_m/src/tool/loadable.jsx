@@ -20,7 +20,7 @@ class DynimicCom extends Component {
     }
   
     componentDidMount() {
-        import(/*webpackChunkName:'home'*/`../components/page/${this.props.path}.jsx`).then((com) => {
+        import(/*webpackChunkName:'home'*/`../components/${this.props.path}.jsx`).then((com) => {
             setTimeout(() => {
                 this.setState({
                     Com: com.default

@@ -16,7 +16,7 @@ let routerBase = {
     routes: [
         {
             path: "/home",
-            component: HeightCom("home"),
+            component: HeightCom("page/home/home"),
         },
 
         {
