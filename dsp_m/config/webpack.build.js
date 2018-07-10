@@ -9,5 +9,4 @@ module.exports = merge(baseWebpack, {
         "react-dom": "ReactDOM",
         "moment": "moment"
     },
-  
 })

@@ -14,7 +14,9 @@ module.exports = {
         //输出文件名
         filename: config.base.outputFilename,
         //按需加载js文件名
-        chunkFilename: config.base.chunfilename
+        chunkFilename: config.base.chunkFilename,
+        //按需加载路径报错是配置公共根路径
+        publicPath:'/'
     },
     module: {
         rules: [
@@ -61,6 +63,6 @@ module.exports = {
             filename: "[name].css",
             chunkFilename: "[id].css"
         })
-
-    ]
+    ],
+   
 } 

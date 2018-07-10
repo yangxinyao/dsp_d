@@ -1,8 +1,9 @@
 
-import React, { Component, Fragment } from "react"
+import React, { Component } from "react"
 
 import Loading from "../components/com/loading/loading.jsx"
-//const Home = () => { import("../components/page/home.jsx")}
+// const Home = () => { import("../components/page/home.jsx")}
+// console.log(Home)
 //异步加载，，，
 class DynimicCom extends Component {
     constructor(props) {
@@ -13,19 +14,21 @@ class DynimicCom extends Component {
     }
     render() {
         const { Com } = this.state
-        return<Fragment>
-            <Loading spining={!this.state.Com}></Loading>
-            {Com && <Com />}
-        </Fragment>
+        if (!this.state.Com) {
+            return (<Loading></Loading>)
+        } else {
+            return <Com />
+        }
     }
-  
-    componentDidMount() {
-        import(/*webpackChunkName:'home'*/`../components/${this.props.path}.jsx`).then((com) => {
+    componentDidMount() { 
+        import(`../components/${this.props.path}.jsx`).then((com) => {
             setTimeout(() => {
                 this.setState({
                     Com: com.default
                 })
             }, 2000);
+        }).catch((err)=>{
+            console.log(err)
         })
     }
 }

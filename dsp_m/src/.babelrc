@@ -4,15 +4,6 @@
         "react"
     ],
     "plugins": [
-        [
-            "import",
-            {
-                "libraryName": "antd",
-                "style": "css"
-            }
-        ],
-        [
-            "syntax-dynamic-import"
-        ] 
+        "syntax-dynamic-import"   
     ]
 }

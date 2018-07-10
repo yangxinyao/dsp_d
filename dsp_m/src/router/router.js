@@ -9,13 +9,14 @@ class ReactView extends Component {
     }
     render() {
         let { routes } = this.props
-        console.log(this.props)
         // console.log(routes)
         return <Switch>
             {
                 routes.map((item, index) => {
                     return <Route exact={item.exact || false} path={item.path} render={()=>{
-                        return <item.component item={item.children}></item.component>
+                        return <item.component item={item.children} render={()=>{
+                            return <item.children items={item.children.children}></item.children>
+                        }} ></item.component>
                     }} key={index}></Route>
                 })
 

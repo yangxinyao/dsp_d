@@ -3,8 +3,8 @@
 // import Plan from "../components/page/plan.jsx"
 // import Until from "../components/page/until.jsx"
 // import Idea from "../components/page/idea.jsx"
-// import DataCenter from "../components/page/dataCenter.jsx"
-
+ import DataCenter from "../components/page/dataCenter.jsx"
+import Index from "../components/index.jsx"
 import ToolBox from "../components/page/toolBox.jsx"
 import Login from "../components/login/login.jsx"
 //
@@ -15,50 +15,58 @@ import HeightCom from "../tool/loadable.jsx"
 let routerBase = {
     routes: [
         {
-            path: "/home",
-            component: HeightCom("page/home/home"),
-        },
-
-        {
-            path: "/plan",
-            component: HeightCom("plan")
+            path: "/",
+            component: Index,
+            exact: true,
         },
         {
-            path: "/until",
-            component: HeightCom("until")
-        },
-        {
-            path: "/idea",
-            component: HeightCom("idea")
-        },
-        {
-            path: "/dataCenter",
-            component: HeightCom("dataCenter")
-        },
-        {
-            path: "/toolBox",
-            component: ToolBox,
+            path: "/index",
+            component: Index,
             children: [
                 {
-                    path: "/toolBox/account",
-                    component: Account
+                    path: "/index/home",
+                    component: HeightCom("page/home/home"),
+                },
+
+                {
+                    path: "/index/plan",
+                    component: HeightCom("page/plan")
                 },
                 {
-                    path: "/toolBox/customer",
-                    component: Customer
-                }
+                    path: "/index/until",
+                    component: HeightCom("page/until")
+                },
+                {
+                    path: "/index/idea",
+                    component: HeightCom("page/idea")
+                },
+                {
+                    path: "/index/dataCenter",
+                    component: DataCenter
+                },
+                {
+                    path: "/index/toolBox",
+                    component: ToolBox,
+                    children: [
+                        {
+                            path: "/index/toolBox/account",
+                            component: Account
+                        },
+                        {
+                            path: "/index/toolBox/customer",
+                            component: Customer
+                        }
+                    ]
+                },
             ]
         },
+
         {//登录
             path: "/login",
             component: Login
-        },  
-    ],
-    
+        },
 
-
-
-
+    ]
 }
 let { routes } = routerBase
 export { routes }
