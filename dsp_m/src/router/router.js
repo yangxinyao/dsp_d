@@ -1,8 +1,10 @@
 import React, { Component } from "react"
 import {
     Switch,
-    Route
+    Route,
+    Redirect
 } from "react-router-dom"
+import { getCookie } from "../tool/cookie.js"
 class ReactView extends Component {
     constructor(props) {
         super(props)
@@ -13,10 +15,15 @@ class ReactView extends Component {
         return <Switch>
             {
                 routes.map((item, index) => {
-                    return <Route exact={item.exact || false} path={item.path} render={()=>{
-                        return <item.component item={item.children} render={()=>{
-                            return <item.children items={item.children.children}></item.children>
-                        }} ></item.component>
+                    return <Route exact={item.exact || false} path={item.path} render={() => {
+                        if (item.path == "/login" || getCookie()) {
+                            return <item.component item={item.children} render={() => {
+                                return <item.children items={item.children.children}></item.children>
+                            }} ></item.component>
+                        } else {
+                            return <Redirect to="/login"></Redirect>
+                        }
+
                     }} key={index}></Route>
                 })
 

@@ -3,7 +3,8 @@
 // import Plan from "../components/page/plan.jsx"
 // import Until from "../components/page/until.jsx"
 // import Idea from "../components/page/idea.jsx"
- import DataCenter from "../components/page/dataCenter.jsx"
+import { Redirect } from "react-router-dom"
+import DataCenter from "../components/page/dataCenter.jsx"
 import Index from "../components/index.jsx"
 import ToolBox from "../components/page/toolBox.jsx"
 import Login from "../components/login/login.jsx"
@@ -16,7 +17,7 @@ let routerBase = {
     routes: [
         {
             path: "/",
-            component: Index,
+            component: () =><Redirect from="/" to="/index/home"></Redirect>,
             exact: true,
         },
         {

@@ -1,4 +1,4 @@
-
+import {getCookie} from "../tool/cookie.js"
 let querystring = {
     stringify(obj) {
         let arr = [];
@@ -18,7 +18,7 @@ let querystring = {
     }
 
 }
-let base = "http://localhost:9000"
+let base = process.env.NODE_ENV =="development"?"http://localhost:9000":""
 export default {
     get(url, params) {
         let s = querystring.stringify(params)
@@ -28,12 +28,29 @@ export default {
             url = url + "&" + s
         }
         return new Promise((resolve, reject) => {
-            fetch(base+url, {
+            fetch(base + url, {
                 headers: {
                     "Content-Type": "application/json"
                 }
             })
                 .then(body => body.json())
+                .then(res => {
+                    resolve(res)
+                })
+        })
+
+    },
+    post(url, params) {
+        return new Promise((resolve, reject) => {
+            fetch(base + url, {
+                method:"post",//必填
+                headers: {
+                    "Content-Type": "application/json",
+                    "Token":getCookie()
+                },
+                data: JSON.stringify(params)
+            })
+                .then(body => { return body.json()} )
                 .then(res => {
                     console.log(res)
                     resolve(res)
@@ -41,7 +58,4 @@ export default {
         })
 
     },
-    post() {
-
-    }
 }

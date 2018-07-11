@@ -15,7 +15,7 @@ class Plan extends Component {
 
     }
     componentDidMount(){
-        http.post("/dsp-report/index", {}).then(res => {
+        http.post('/dsp-report/index',{}).then(res => {
             console.log(res)
         })
     }
