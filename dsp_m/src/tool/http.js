@@ -46,13 +46,12 @@ export default {
                 method:"post",//必填
                 headers: {
                     "Content-Type": "application/json",
-                    "Token":getCookie()
+                    "Token":getCookie("token")
                 },
-                data: JSON.stringify(params)
+                body: JSON.stringify(params)
             })
                 .then(body => { return body.json()} )
                 .then(res => {
-                    console.log(res)
                     resolve(res)
                 })
         })

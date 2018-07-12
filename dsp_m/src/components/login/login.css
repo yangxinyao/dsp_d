@@ -136,3 +136,6 @@ position: relative;
     background:none;
     color:#fff;
 }
+.login_bor{
+    border:2px solid red;
+}
