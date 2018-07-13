@@ -75,7 +75,6 @@ module.exports = function (app) {
 
     //login api
     app.post('/dsp-admin/user/login', function (req, res) {
-        console.log(req)
         let user = fs.readFileSync(__dirname + '/user.json', { encoding: "utf-8" });
         user = JSON.parse(user);
         let login = req.body;
@@ -127,6 +126,32 @@ module.exports = function (app) {
         })
         res.send(mockData)
 
+    })
+    //计划列表
+    let Random = Mock.Random
+    let datatable = Mock.mock({
+        "data": {
+            "list|30": [{
+                "key": () => Random.increment(),
+                "name": () => Random.cname(),
+                "promotionType": 1, // 推广目的
+                "status|1": [1,2,3,4,999],//计划状态 (1:投放中；2:下线-达到日预算；3:下线-达到账户预算； 4:暂停；999:删除)
+                "dayBudget": () => Random.natural(1000, 10000), // 计划日预算(单位分)
+                "exposeNum": () => Random.natural(1000, 10000),//曝光量
+                "clickNum": () => Random.natural(1000, 10000),//点击量
+                "clickRate": () => Random.natural(1000, 10000),//点击率
+                "clickPrice": () => Random.natural(1000, 10000),//点击均价；  单位是分 消费/点击量
+                "cpmPrice": () => Random.natural(1000, 10000),//千次展示均价；  单位是分 消费/曝光量
+                "consumed": () => Random.natural(1000, 10000), //总消耗
+                "modifyTime": () => Random.natural(10000, 100000),
+                "createTime": () => Random.natural(10000, 100000),
+                "operatorId": 1,//操作人Id
+                "operatorName": "张三" //创建人姓名
+            }]
+        }
+    }) 
+    app.post("/dsp-advert/campaigns/list",function(req,res){
+        res.send(datatable)
     })
 
     //upload 上传接口

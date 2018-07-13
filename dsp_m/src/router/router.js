@@ -18,10 +18,10 @@ class ReactView extends Component {
         return <Switch>
             {
                 routes.map((item, index) => {
-                    return <Route exact={item.exact || false} path={item.path} render={() => {
+                    return <Route exact={item.exact || false} path={item.path} render={(router) => {
                         if (item.path == "/login" || getCookie("token")) {
-                            return <item.component item={item.children} render={() => {
-                                return <item.children items={item.children.children}></item.children>
+                            return <item.component {...router} item={item.children} render={() => {
+                                return <item.children {...router} items={item.children.children}></item.children>
                             }} ></item.component>
                         } else {
                             return <Redirect to="/login"></Redirect>

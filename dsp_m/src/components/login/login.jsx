@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import "./login.css"
 import http from "../../tool/http.js"
 import {setCookie} from "../../tool/cookie.js"
+import Store, { actions,SAVETOKEN} from '../../store/index.js'
+import {connect} from "react-redux"
 class Login extends Component {
     constructor(props) {
         super(props)
@@ -95,12 +97,23 @@ class Login extends Component {
         }
         let { username, password, vertyCode } = this.state
         http.post("/dsp-admin/user/login", { username, password, vertyCode }).then((res) => {
-            console.log(res)
-            setCookie(res.token)
+            if(res.success==0){
+                setCookie("token",res.token)
+                localStorage.setItem("username",res.user.name)
+                 this.props.history.replace("/index/home")
+                 Store.dispatch(actions[SAVETOKEN](res.user.name))
+            }else{
+                alert(res.info)
+            }
+            
         })
     }
 }
-
-export default Login
+let mapStateToProps=(state)=>{
+    return {
+       username:state.username
+    }
+}
+export default connect(mapStateToProps)(Login)
 
 

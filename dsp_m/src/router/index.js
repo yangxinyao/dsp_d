@@ -9,7 +9,7 @@ import Index from "../components/index.jsx"
 import ToolBox from "../components/page/toolBox.jsx"
 import Login from "../components/login/login.jsx"
 //
-import Account from "../components/page/account.jsx"
+// import Account from "../components/page/account.jsx"
 import Customer from "../components/page/customer.jsx"
 //按需加载
 import HeightCom from "../tool/loadable.jsx"
@@ -26,20 +26,20 @@ let routerBase = {
             children: [
                 {
                     path: "/index/home",
-                    component: HeightCom("page/home/home"),
+                    component: HeightCom(()=>import(/*webpackChunkName:"home"*/ '../components/page/home/home.jsx'))
                 },
 
                 {
                     path: "/index/plan",
-                    component: HeightCom("page/plan")
+                    component: HeightCom(() => import(/*webpackChunkName:"plan"*/ '../components/page/plan.jsx'))
                 },
                 {
                     path: "/index/until",
-                    component: HeightCom("page/until")
+                    component: HeightCom(() => import(/*webpackChunkName:"until"*/ '../components/page/until.jsx'))
                 },
                 {
                     path: "/index/idea",
-                    component: HeightCom("page/idea")
+                    component: HeightCom(() => import(/*webpackChunkName:"idea"*/ '../components/page/idea.jsx'))
                 },
                 {
                     path: "/index/dataCenter",
@@ -51,7 +51,7 @@ let routerBase = {
                     children: [
                         {
                             path: "/index/toolBox/account",
-                            component: Account
+                            component: HeightCom(() => import(/*webpackChunkName:"account"*/ '../components/page/account.jsx'))
                         },
                         {
                             path: "/index/toolBox/customer",

@@ -21,7 +21,7 @@ class DynimicCom extends Component {
         }
     }
     componentDidMount() { 
-        import(`../components/${this.props.path}.jsx`).then((com) => {
+        this.props.comFn().then((com) => {
             setTimeout(() => {
                 this.setState({
                     Com: com.default
@@ -32,10 +32,10 @@ class DynimicCom extends Component {
         })
     }
 }
-function HeightCom(path) {
+function HeightCom(comFn) {
     return class extends Component {
         render() {
-            return <DynimicCom path={path} />
+            return <DynimicCom comFn={comFn} />
         }
     }
 }

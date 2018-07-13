@@ -68,10 +68,12 @@ class Home extends Component {
     }
     setDate(date) {
         let option = this.option;
-        let d = moment.duration(moment(date[1]) - moment(date[0])).asDays()
+        let a=moment(new Date(date[0]))
+        let b=moment(new Date(date[1]))
+        let d = b.diff(a,"days")
         let arr = []
         for (let i = 1; i <= d; i++) {
-            arr.unshift(moment(date[1]).subtract(i, 'days').format("YYYY/MM/DD"))
+            arr.unshift(moment(new Date(date[1])).subtract(i, 'days').format("YYYY/MM/DD"))
         }
         http.post('/dsp-report/index', { count: d + 1 }).then((res) => {
             option.xAxis.data = arr

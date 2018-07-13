@@ -1,16 +1,30 @@
 import React, { Component, Fragment } from "react"
-import { Menu, Icon } from 'antd';
+import { Menu, Icon, Dropdown} from 'antd';
 const SubMenu = Menu.SubMenu;
 import { BrowserRouter as Router, Link } from "react-router-dom"
 import ReactView from "../router/router.js"
+import { delCookie} from "../tool/cookie.js"
 class Index extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            collapsed: false
+            collapsed: false,
+            user:""
+        }
+        this.handleClick=this.handleClick.bind(this)
+    }
+    handleClick(e){
+        if(e.key=="0"){
+            delCookie("token")
+            this.props.history.replace("/login")
         }
     }
     render() {
+        let menu = (
+            <Menu onClick={(e)=>{this.handleClick(e)}}>
+                <Menu.Item key="0">退出登录</Menu.Item>
+            </Menu>
+        );
         return (
             <Fragment>
                 {/* 左侧导航 */}
@@ -40,15 +54,25 @@ class Index extends Component {
                         </SubMenu>
 
                     </Menu>
-                </div>
+                </div>      
                 {/* 右侧内容 */}
                 <div className="right">
+                <Dropdown overlay={menu}  >
+                    <h2>{this.state.user} </h2>
+                </Dropdown>
                     <ReactView routes={this.props.item || []} />
                 </div>
             </Fragment>
 
         );
     }
+    componentDidMount(){
+        this.setState({
+            user: localStorage.getItem("username")
+        })
+         console.log(this.state.user)
+    }
 
 }
+
 export default Index
